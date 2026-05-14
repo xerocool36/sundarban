@@ -62,12 +62,11 @@ const COPY = {
     hours: {
       eyebrow: 'Orari',
       title: 'Aperti *tutti i giorni.*',
-      desc: 'Pranzo dalle 12 alle 15, cena dalle 18 alle 23. Tavolo, asporto e consegna disponibili in tutti gli orari di apertura.',
+      desc: 'Aperti dalle 8 alle 23, in continuo. Tavolo, asporto e consegna disponibili in tutti gli orari di apertura.',
       open: 'Aperto adesso',
       closed: 'Chiuso',
       days: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-      lunch: 'Pranzo',
-      dinner: 'Cena',
+      timeRange: '08:00 — 23:00',
     },
     visit: {
       eyebrow: 'Trovaci',
@@ -82,12 +81,16 @@ const COPY = {
     },
     contact: {
       eyebrow: 'Contatti',
-      title: 'Parliamone.',
+      title: 'Vuoi Parlarci?',
       phone_label: 'Telefono / Prenotazioni',
       phone: '06 6477 1702',
       social_label: 'Seguici',
     },
-    foot: ['© Sundarban Ristorante Indiano', 'Via Mario Cartaro 45/47, Roma'],
+    foot: {
+      copyright: '© 2026 Sundarban Ristorante Indiano. Tutti i diritti riservati.',
+      made_by_prefix: 'Questo sito è stato realizzato da',
+      made_by_name: 'X3RO AUTOMATIONS',
+    },
   },
   en: {
     nav: { story: 'Story', order: 'Order', hours: 'Hours', visit: 'Visit', contact: 'Contact' },
@@ -131,12 +134,11 @@ const COPY = {
     hours: {
       eyebrow: 'Hours',
       title: 'Open *every day.*',
-      desc: 'Lunch from 12 to 3, dinner from 6 to 11. Dine-in, pickup and delivery available throughout opening hours.',
+      desc: 'Open from 8 AM to 11 PM, all day. Dine-in, pickup and delivery available throughout opening hours.',
       open: 'Open now',
       closed: 'Closed',
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      lunch: 'Lunch',
-      dinner: 'Dinner',
+      timeRange: '08:00 — 23:00',
     },
     visit: {
       eyebrow: 'Visit',
@@ -151,12 +153,16 @@ const COPY = {
     },
     contact: {
       eyebrow: 'Contact',
-      title: 'Let\u2019s talk.',
+      title: 'Want to talk to us?',
       phone_label: 'Phone / Reservations',
       phone: '06 6477 1702',
       social_label: 'Follow us',
     },
-    foot: ['© Sundarban Indian Restaurant', 'Via Mario Cartaro 45/47, Rome'],
+    foot: {
+      copyright: '© 2026 Sundarban Indian Restaurant. All rights reserved.',
+      made_by_prefix: 'This website was made by',
+      made_by_name: 'X3RO AUTOMATIONS',
+    },
   },
 };
 
@@ -755,7 +761,7 @@ function useNow() {
 
 function isOpenAt(date) {
   const hh = date.getHours() + date.getMinutes() / 60;
-  return (hh >= 12 && hh < 15) || (hh >= 18 && hh < 23);
+  return hh >= 8 && hh < 23;
 }
 
 function Hours() {
@@ -800,14 +806,7 @@ function Hours() {
               transition={{ duration: 0.8, ease: easeOut, delay: i * 0.06 }}
             >
               <span className="day">{t.hours.days[dayIdx]}</span>
-              <span className="lunch">
-                <span className="lab">{t.hours.lunch}</span>
-                12:00 — 15:00
-              </span>
-              <span className="dinner">
-                <span className="lab">{t.hours.dinner}</span>
-                18:00 — 23:00
-              </span>
+              <span className="time">{t.hours.timeRange}</span>
             </motion.div>
           ))}
         </div>
@@ -965,9 +964,18 @@ function Footer() {
   const { t } = useLang();
   return (
     <footer>
-      <span className="ornament" />
-      {t.foot.map((s, i) => <span key={i}>{s}</span>)}
-      <span className="ornament" />
+      <div className="foot-logos">
+        <img src="assets/logo.png" alt="Sundarban" className="foot-logo sundarban" />
+        <span className="foot-divider" aria-hidden />
+        <a href="https://x3roautomations.it" target="_blank" rel="noopener" className="foot-x3ro-link" aria-label="X3RO Automations">
+          <img src="assets/x3ro-logo.png" alt="X3RO Automations" className="foot-logo x3ro" />
+        </a>
+      </div>
+      <div className="foot-copy">{t.foot.copyright}</div>
+      <a href="https://x3roautomations.it" target="_blank" rel="noopener" className="foot-credit">
+        {t.foot.made_by_prefix}{' '}
+        <span className="foot-credit-brand">{t.foot.made_by_name}</span>
+      </a>
     </footer>
   );
 }
