@@ -2,8 +2,8 @@
 
 Single-page site for **Sundarban Ristorante Indiano**, Via Mario Cartaro 45/47, 00176 Roma (Torpignattara).
 
-- **Live:** _(set after first Netlify deploy)_
-- **Hosting:** Netlify (auto-deploys on push to `main`)
+- **Live:** <https://sundarban-roma.netlify.app>
+- **Hosting:** Netlify (project `sundarban-roma`, team `sihab-project01`)
 - **Source of design:** Claude Design — re-export from the project URL and re-sync (see below)
 
 ## Stack
